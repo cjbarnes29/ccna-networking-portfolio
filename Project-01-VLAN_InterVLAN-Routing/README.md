@@ -49,6 +49,19 @@ This lab uses multiple VLANs to separate departments and allows communication be
 ### Troubleshooting Evidence - Wrong Trunk Port Configuration
 ![Wrong Trunk Port Config](wrong%20trunk%20port%20config.png)
 
+### Troubleshooting Summary
+
+The issue was caused by an incorrect trunk configuration. The trunk port was not allowing all required VLANs, so traffic between VLANs could not pass correctly.
+
+To troubleshoot, I verified the VLANs, trunk status, router subinterfaces, and routing table using:
+
+- `show vlan brief`
+- `show interfaces trunk`
+- `show ip interface brief`
+- `show ip route`
+
+After correcting the trunk allowed VLAN list, inter-VLAN communication worked successfully.
+
 ### Successful Ping Test
 ![Ping Success](ping%20success.png)
 
