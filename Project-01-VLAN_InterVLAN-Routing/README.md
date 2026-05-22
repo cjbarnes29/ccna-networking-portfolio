@@ -26,6 +26,29 @@ This lab uses multiple VLANs to separate departments and allows communication be
 | VLAN 20 | HR | 192.168.20.0/24 |
 | VLAN 30 | IT | 192.168.30.0/24 |
 
+
+
+
+## Project Screenshots
+
+### Network Topology
+![Network Topology](topology.png)
+
+### Trunk Configuration
+![Show Interfaces Trunk](show%20interfaces%20trunk.png)
+
+### Running Configuration
+![Show Running Config](show%20running%20config.png)
+
+### Troubleshooting Evidence - Wrong Trunk Port
+![Wrong Trunk Port](wrong%20port%20trunk.png)
+
+### Troubleshooting Evidence - Wrong Trunk Port Configuration
+![Wrong Trunk Port Config](wrong%20trunk%20port%20config.png)
+
+### Successful Ping Test
+![Ping Success](ping%20success.png)
+
 ## Configuration Summary
 
 - Created VLANs on the switch
