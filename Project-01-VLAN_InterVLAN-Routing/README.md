@@ -46,9 +46,6 @@ This lab uses multiple VLANs to separate departments and allows communication be
 ### Running Configuration
 ![Show Running Config](show%20running%20config.png)
 
-### Troubleshooting Evidence - Wrong Trunk Port
-![Wrong Trunk Port](wrong%20port%20trunk.png)
-
 ### Troubleshooting Evidence - Wrong Trunk Port Configuration
 ![Wrong Trunk Port Config](wrong%20trunk%20port%20config.png)
 
