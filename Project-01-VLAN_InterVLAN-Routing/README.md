@@ -35,10 +35,10 @@ This lab uses multiple VLANs to separate departments and allows communication be
 ![Network Topology](topology.png)
 
 ### Router Interface Status
-![Show IP Interface Brief](show-ip-interface-brief.png)
+![Show IP Interface Brief](show%20ip%20interface%20brief.png)
 
 ### Routing Table
-![Show IP Route](show-ip-route.png)
+![Show IP Route](show%20ip%20route.png)
 
 ### Trunk Configuration
 ![Show Interfaces Trunk](show%20interfaces%20trunk.png)
