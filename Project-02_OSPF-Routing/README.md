@@ -17,10 +17,10 @@
 ![Route Table](route-table.png)
 
 ## Show IP Route
-![show IP Route](show ip route.png)
+![show IP Route](show-ip-route.png)
 
 ## Successful Ping
-![Successful Ping](successful ping.png)
+![Successful Ping](successful-ping.png)
 
 ## Troubleshooting Command
 ![Troubleshooting Command](troubleshooting-command.png)
