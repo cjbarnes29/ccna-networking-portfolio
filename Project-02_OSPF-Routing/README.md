@@ -17,7 +17,7 @@
 ![Route Table](route-table.png)
 
 ## Show IP Route
-![Show IP Route](show ip route.png)
+![show IP Route](show ip route.png)
 
 ## Successful Ping
 ![Successful Ping](successful ping.png)
