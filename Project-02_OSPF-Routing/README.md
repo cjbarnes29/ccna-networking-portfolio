@@ -1,33 +1,26 @@
-# Project 02 - OSPF Routing Troubleshooting Lab
-
-## Objective
-Configure and troubleshoot OSPF routing between three Cisco routers using EVE-NG and Cisco IOS.
-
-## Technologies Used
-- OSPF
-- IPv4 Addressing
-- Cisco IOS CLI
-- EVE-NG
-- VPCS
-- Troubleshooting
-
----
-
-# Network Topology
-
+## Topology
 ![Topology](topology.png)
 
-Three routers were connected in a triangle topology with separate LAN networks connected to Router 1 and Router 2.
-
----
-
-# Initial Issue - Interface Down
-
-One router interface was administratively down causing OSPF adjacency failure.
-
+## Interface Down Issue
 ![Interface Down](interface-down-issue.png)
 
-### Verification Command
+## OSPF Loading
+![OSPF Loading](ospf-loading.png)
 
-```bash
-show ip interface brief
+## OSPF Neighbor Before
+![OSPF Neighbor Before](ospf-neighbor-before.png)
+
+## OSPF Neighbor After
+![OSPF Neighbor After](ospf-neighbor after.png)
+
+## Route Table
+![Route Table](route-table.png)
+
+## Show IP Route
+![Show IP Route](show ip route.png)
+
+## Successful Ping
+![Successful Ping](successful ping.png)
+
+## Troubleshooting Command
+![Troubleshooting Command](troubleshooting-command.png)
