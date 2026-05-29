@@ -1,7 +1,7 @@
 # Project 02 - OSPF Routing Troubleshooting Lab
 
 ## Objective
-Configure and troubleshoot OSPF routing between three Cisco routers using EVE-NG.
+Configure and troubleshoot OSPF routing between three Cisco routers using EVE-NG and Cisco IOS.
 
 ## Technologies Used
 - OSPF
@@ -15,7 +15,9 @@ Configure and troubleshoot OSPF routing between three Cisco routers using EVE-NG
 
 # Network Topology
 
-![Topology](screenshots/topology.png)
+![Topology](topology.png)
+
+Three routers were connected in a triangle topology with separate LAN networks connected to Router 1 and Router 2.
 
 ---
 
@@ -23,7 +25,7 @@ Configure and troubleshoot OSPF routing between three Cisco routers using EVE-NG
 
 One router interface was administratively down causing OSPF adjacency failure.
 
-![Interface Down](screenshots/interface-down-issue.png)
+![Interface Down](interface-down-issue.png)
 
 ### Verification Command
 
