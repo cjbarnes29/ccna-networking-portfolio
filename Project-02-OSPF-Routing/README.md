@@ -1,11 +1,32 @@
-Markdown
-# Project 02 - OSPF Routing Troubleshooting
+# Project 02 - OSPF Routing Configuration and Troubleshooting
 
 ## Project Overview
 
-This project demonstrates OSPF routing configuration and troubleshooting using three Cisco routers connected in a triangle topology.
+This project demonstrates the implementation of OSPF (Open Shortest Path First) routing between three Cisco routers using EVE-NG and Cisco IOS.
 
-The lab was intentionally configured with multiple routing issues to simulate real troubleshooting scenarios commonly encountered in enterprise networks.
+The network was designed using a triangle topology with multiple point-to-point connections and separate LAN networks. OSPF was configured to dynamically exchange routing information between routers and provide end-to-end connectivity between PCs.
+
+In addition to the initial implementation, multiple routing and connectivity issues were intentionally introduced to practice troubleshooting and network verification techniques commonly used in enterprise environments.
+
+The project includes:
+- OSPF configuration
+- Dynamic route learning
+- Neighbor adjacency verification
+- Interface troubleshooting
+- OSPF area troubleshooting
+- Gateway troubleshooting
+- End-to-end connectivity testing
+
+---
+
+# Project Objectives
+
+- Configure OSPF routing between three routers
+- Establish OSPF neighbor relationships
+- Verify dynamic route learning
+- Troubleshoot interface and routing problems
+- Restore end-to-end PC connectivity
+- Practice Cisco IOS verification commands
 
 ---
 
@@ -20,7 +41,22 @@ The lab was intentionally configured with multiple routing issues to simulate re
 
 # Network Topology
 
-The network uses /30 point-to-point links between routers and /24 LAN networks for PCs.
+The network consists of three routers connected using /30 point-to-point links.
+
+LAN Networks:
+
+| Device | Network |
+|---|---|
+| R1 LAN | 192.168.1.0/24 |
+| R2 LAN | 192.168.2.0/24 |
+
+Point-to-Point Networks:
+
+| Link | Network |
+|---|---|
+| R1 ↔ R2 | 10.0.12.0/30 |
+| R1 ↔ R3 | 10.0.13.0/30 |
+| R2 ↔ R3 | 10.0.23.0/30 |
 
 ## Topology Diagram
 
@@ -30,7 +66,7 @@ The network uses /30 point-to-point links between routers and /24 LAN networks f
 
 # Troubleshooting Scenarios
 
-The following issues were intentionally introduced into the lab:
+The following problems were intentionally introduced into the lab:
 
 - R1 G0/1 interface shutdown
 - OSPF area mismatch
@@ -44,7 +80,7 @@ The following issues were intentionally introduced into the lab:
 
 # R1 Interface Shutdown Issue
 
-R1 GigabitEthernet0/1 was administratively down, preventing OSPF adjacency formation with R2.
+R1 GigabitEthernet0/1 was administratively down, preventing OSPF neighbor adjacency formation.
 
 Verification command used:
 
@@ -62,7 +98,7 @@ interface g0/1
 no shutdown
 ```
 
-After enabling the interface, connectivity between routers was restored.
+After enabling the interface, router communication was restored.
 
 ![No Shutdown](no-shutdown.png)
 
@@ -70,9 +106,7 @@ After enabling the interface, connectivity between routers was restored.
 
 # OSPF Area Mismatch
 
-R2 was configured with the wrong OSPF area, causing neighbor relationships to fail.
-
-The router generated an OSPF area mismatch message during adjacency attempts.
+R2 was configured with the wrong OSPF area which prevented adjacency formation.
 
 ![Area Mismatch](area-mismatch.png)
 
@@ -93,7 +127,7 @@ network 10.0.12.0 0.0.0.3 area 0
 
 # Initial OSPF Neighbor Failure
 
-Before troubleshooting, routers were unable to establish FULL OSPF neighbor relationships.
+Before troubleshooting, routers failed to establish FULL OSPF neighbor relationships.
 
 Verification command used:
 
@@ -107,7 +141,7 @@ show ip ospf neighbor
 
 # Router 3 Routing Verification Before Fix
 
-Router 3 initially had incomplete routing information due to the OSPF problems.
+Router 3 initially showed incomplete routing information due to OSPF issues.
 
 Verification command used:
 
@@ -121,9 +155,9 @@ show ip route ospf
 
 # OSPF Neighbor Recovery
 
-After correcting the configuration issues, all routers successfully formed FULL OSPF neighbor relationships.
+After correcting the configuration issues, all routers successfully established FULL neighbor relationships.
 
-Neighbor verification:
+Verification command used:
 
 ```bash
 show ip ospf neighbor
@@ -139,7 +173,7 @@ show ip ospf neighbor
 
 # Wrong Gateway Issue
 
-PC2 was initially configured with the wrong default gateway, preventing communication with remote networks.
+PC2 initially had an incorrect default gateway configured, preventing communication with remote networks.
 
 ![Wrong Gateway](wrong-gateway.png)
 
@@ -149,13 +183,11 @@ PC2 was initially configured with the wrong default gateway, preventing communic
 192.168.2.1
 ```
 
-After correcting the gateway, end-to-end communication became successful.
-
 ---
 
-# End-to-End Connectivity Test
+# Final Connectivity Verification
 
-Final connectivity testing confirmed successful routing between LAN networks.
+After troubleshooting and applying corrections, successful end-to-end communication between PCs was verified.
 
 Ping test used:
 
@@ -165,7 +197,7 @@ ping 192.168.1.10
 
 ![Successful Ping](successful-ping.png)
 
-The successful replies verified that OSPF routing and network communication were fully restored.
+Successful replies confirmed that OSPF routing and LAN communication were fully restored.
 
 ---
 
@@ -175,9 +207,9 @@ The successful replies verified that OSPF routing and network communication were
 - OSPF troubleshooting
 - Interface troubleshooting
 - Neighbor adjacency troubleshooting
-- Routing verification
+- Dynamic route verification
 - Gateway troubleshooting
-- Cisco CLI verification commands
+- Cisco IOS verification commands
 
 ---
 
