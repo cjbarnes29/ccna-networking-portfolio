@@ -238,7 +238,7 @@ ip route 0.0.0.0 0.0.0.0 200.1.1.2
 
 PCs were able to reach the ISP router after DHCP, NAT/PAT, and default route fixes.
 
-![Successful Ping](18-successful-ping-to-isp.png)
+![Successful Ping](18-successful-ping-to-isp.png.png)
 
 ---
 
