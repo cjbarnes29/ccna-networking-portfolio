@@ -1,0 +1,188 @@
+# Project 02 - OSPF Routing Troubleshooting
+
+## Project Overview
+
+This project demonstrates OSPF (Open Shortest Path First) routing configuration and troubleshooting using three Cisco routers connected in a triangle topology.
+
+The lab focuses on identifying and fixing common OSPF issues such as:
+
+- Interface shutdown problems
+- OSPF area mismatches
+- Missing OSPF network advertisements
+- Incorrect subnet masks
+- Wrong PC default gateway configuration
+
+After troubleshooting, full end-to-end connectivity between PCs was successfully restored.
+
+---
+
+# Technologies Used
+
+- Cisco IOS CLI
+- OSPF Routing Protocol
+- EVE-NG
+- VPCS
+
+---
+
+# Network Topology
+
+![Network Topology](topology.png)
+
+This topology uses three routers in a triangle design running OSPF.  
+R1 and R2 have LAN networks connected to PCs, while R3 provides an additional routed path between routers.
+
+## Addressing
+
+| Device | Interface | IP Address |
+|---|---|---|
+| R1 | G0/1 | 10.0.12.1/30 |
+| R1 | G0/2 | 10.0.13.1/30 |
+| R1 | G0/0 | 192.168.1.1/24 |
+| R2 | G0/1 | 10.0.12.2/30 |
+| R2 | G0/2 | 10.0.23.1/30 |
+| R2 | G0/0 | 192.168.2.1/24 |
+| R3 | G0/1 | 10.0.13.2/30 |
+| R3 | G0/0 | 10.0.23.2/30 |
+
+---
+
+# Troubleshooting Scenarios
+
+The following configuration problems were intentionally created and fixed during the lab:
+
+- R1 G0/1 interface was shutdown
+- R2 had OSPF area mismatch
+- R2 LAN network was missing from OSPF
+- R2 G0/2 used incorrect subnet mask
+- PC2 had incorrect default gateway
+
+---
+
+# Screenshot Evidence
+
+## Troubleshooting Mistakes List
+
+![Mistake List](mistake-list.png)
+
+---
+
+## R1 Interface Shutdown Problem
+
+R1 interface G0/1 was administratively down which prevented OSPF neighbor formation.
+
+![Interface Down](interface-down.png)
+
+---
+
+## R2 OSPF Neighbor Failure
+
+Before troubleshooting, R2 was unable to establish OSPF neighbors because of an area mismatch issue.
+
+![No Neighbor](no-neighbor.png)
+
+---
+
+## Router3 Neighbor Status Before Fix
+
+Router3 only formed partial OSPF adjacency before corrections were applied.
+
+![Router3 Before Fix](router3%20-before-fix.png)
+
+---
+
+## Fixing R1 Interface Shutdown
+
+The interface was enabled using the `no shutdown` command.
+
+```bash
+interface g0/1
+no shutdown
+```
+
+![No Shutdown Fix](no-shutdown.png)
+
+---
+
+## Fixing OSPF Area Mismatch
+
+R2 was configured with the wrong OSPF area.  
+The network statement was corrected to Area 0.
+
+```bash
+router ospf 1
+no network 10.0.12.0 0.0.0.3 area 1
+network 10.0.12.0 0.0.0.3 area 0
+network 192.168.2.0 0.0.0.255 area 0
+```
+
+![Area Mismatch Fix](area-mismatch.png)
+
+---
+
+# OSPF Neighbor Verification
+
+After troubleshooting, all routers successfully formed OSPF adjacencies.
+
+## R1 Neighbor Table
+
+![Neighbor After Fix](neighbor-after-fix.png)
+
+---
+
+## R2 Neighbor Table
+
+![Neighbor After Fix 2](neighbor-after-fix-2.png)
+
+---
+
+## R3 Neighbor Table
+
+![Neighbor After Fix 3](neighbor-after-fix-3.png)
+
+---
+
+# PC Gateway Issue
+
+PC2 originally had the wrong default gateway configured.
+
+This prevented communication to remote networks.
+
+![Wrong Gateway](wrong-gateway.png)
+
+The gateway was corrected to:
+
+```bash
+192.168.2.1
+```
+
+---
+
+# End-to-End Connectivity Test
+
+After all fixes were completed, successful communication between PCs was verified.
+
+The first ping timeout is normal because of ARP learning.
+
+Subsequent replies confirmed successful routing between networks.
+
+![Successful Ping](successful-ping.png)
+
+---
+
+# Skills Practiced
+
+- OSPF Neighbor Troubleshooting
+- Cisco CLI Configuration
+- Interface Troubleshooting
+- IP Addressing
+- Subnetting
+- Default Gateway Configuration
+- Routing Verification
+- Network Troubleshooting Methodology
+
+---
+
+# Result
+
+All routers successfully formed OSPF neighbor relationships and full connectivity between LAN networks was restored.
