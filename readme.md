@@ -1,5 +1,7 @@
 # CCNA Networking Portfolio
 
+Created by: Carlou Joseph Barnes
+
 This repository contains my CCNA networking lab projects created using EVE-NG.
 
 ## Projects
