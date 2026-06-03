@@ -1,225 +1,158 @@
-# Project 04 - ACL Security Configuration and Troubleshooting
+# Project 04 - ACL Security Configuration
 
 ## Project Overview
 
-This project demonstrates the configuration, verification, and troubleshooting of Cisco Extended Access Control Lists (ACLs).
+This project demonstrates the implementation and troubleshooting of Cisco Extended Access Control Lists (ACLs) to control traffic between two LAN networks.
 
-The objective was to control traffic between two separate LAN networks while learning how ACL placement, direction, and rule configuration affect packet forwarding.
-
-Several intentional configuration mistakes were introduced and later corrected to simulate real-world network troubleshooting scenarios.
+The objective was to block ICMP (ping) traffic from PC1 (192.168.10.10) to PC2 (192.168.20.10) while allowing other traffic to continue operating normally.
 
 ---
 
-## Topology
+## Network Topology
 
-![Topology](01-topology.png)
+![Topology](topology.png)
 
----
-
-## Network Diagram
-
-```text
-PC1 ---- SW1 ---- R1 -------- R2 ---- PC2
-                 |            |
-          192.168.10.0   192.168.20.0
-```
-
----
-
-## IP Addressing
+### IP Addressing Plan
 
 | Device | Interface | IP Address |
-|----------|----------|----------|
-| PC1 | Eth0 | 192.168.10.10/24 |
-| R1 | G0/0 | 192.168.10.1/24 |
-| R1 | G0/2 | 10.0.12.1/30 |
-| R2 | G0/0 | 10.0.12.2/30 |
-| R2 | G0/1 | 192.168.20.1/24 |
-| PC2 | Eth0 | 192.168.20.10/24 |
+|----------|-----------|------------|
+| PC1 | eth0 | 192.168.10.10/24 |
+| Router1 | G0/0 | 192.168.10.1/24 |
+| Router1 | G0/2 | 10.0.12.1/30 |
+| Router2 | G0/0 | 10.0.12.2/30 |
+| Router2 | G0/1 | 192.168.20.1/24 |
+| PC2 | eth0 | 192.168.20.10/24 |
 
 ---
 
-## Technologies Used
+## Project Objectives
 
-- Cisco IOSv Routers
-- Ethernet Switching
-- Static Routing
-- Extended ACLs
-- ICMP Filtering
-- EVE-NG
-- VPCS
-
----
-
-## Skills Demonstrated
-
-- Extended ACL Configuration
-- ACL Placement Best Practices
-- ACL Direction (Inbound vs Outbound)
-- Traffic Filtering
-- ICMP Control
-- Troubleshooting ACL Errors
-- Verification and Testing
+- Configure connectivity between two LANs
+- Configure Static Routes
+- Implement Extended ACLs
+- Block ICMP traffic between hosts
+- Troubleshoot ACL configuration issues
+- Verify ACL operation using Cisco IOS commands
 
 ---
 
-# Step 1 - Verify Base Connectivity
+## Connectivity Verification Before ACL
 
-Before implementing ACLs, connectivity between PC1 and PC2 was verified.
+Successful connectivity test before ACL implementation.
 
-### Successful Ping Test
-
-![Successful Ping](02-base-successful-ping.png)
-
-### Explanation
-
-At this stage, routing was fully operational.
-
-PC1 successfully reached PC2 through R1 and R2, confirming:
-
-- Correct IP addressing
-- Proper static routing
-- Functional Layer 3 connectivity
+![Successful Ping](successful_ping.png)
 
 ---
 
-# Step 2 - ACL Applied in Wrong Direction
+# Mistake 1 - Wrong ACL Direction
 
-An Extended ACL was created and applied in the wrong direction.
+### Incorrect ACL Configuration
 
-### Configuration Error
+The ACL was created but applied in the wrong direction.
 
-![Wrong ACL Direction](03-wrong-acl-direction.png)
+![Wrong ACL Direction](wrong_acl_direction.png)
 
 ### Verification
 
-![Wrong Direction Verification](04-show-run-wrong-direction.png)
+![Wrong Direction Verification](show_accesslists_wrong_direction.png)
 
 ### Result
 
-![Ping Still Works](05-ping-still-works.png)
+Traffic was still allowed because the ACL was not filtering packets correctly.
+
+![Ping Still Works](ACL_WORKED.png)
 
 ### Explanation
 
-Although the ACL contained the correct deny statement, it was applied in the wrong direction.
-
-Because of the incorrect placement, packets were not filtered as intended and communication continued successfully.
-
-This is one of the most common ACL mistakes made by beginners.
+ACLs must be applied to the correct interface and direction. Applying the ACL incorrectly prevents the router from filtering the intended traffic.
 
 ---
 
-# Step 3 - Correct ACL Direction
+# Fix 1 - Correct ACL Placement
 
-The ACL was removed and reapplied in the proper direction.
+The ACL was removed and reapplied to the correct interface direction.
 
-### Correct Configuration
-
-![Correct ACL Direction](06-correct-acl-direction.png)
+![Correct ACL Direction](correct_acl_direction.png)
 
 ### Result
 
-![Ping Blocked](07-ping-blocked-by-acl.png)
+ICMP traffic is now blocked successfully.
+
+![Ping Blocked](ping_blocked_by_acl.png)
 
 ### Explanation
 
-After correcting the ACL direction, ICMP traffic from PC1 to PC2 was successfully blocked.
-
-The ACL now processed packets at the correct point in the traffic flow.
+Once applied inbound on Router1 G0/0, the ACL matched the ICMP packets and denied them before routing occurred.
 
 ---
 
-# Step 4 - Missing Permit Statement
+# Mistake 2 - Missing Permit Statement
 
-The ACL was modified to remove the permit statement.
+### Incorrect Configuration
 
-### Configuration Error
+Only the deny statement was configured.
 
-![Missing Permit Statement](08-acl-missing-permit-any.png)
+![ACL Missing Permit](acl_missing_permit-any.png)
 
-### Explanation
+### Problem
 
-Every ACL contains an implicit:
+Cisco ACLs automatically end with:
 
 ```cisco
 deny ip any any
 ```
 
-at the end.
+Without a permit statement, all remaining traffic is blocked.
 
-When the permit statement was removed, traffic that was not explicitly permitted was automatically denied.
+### Fix
 
-This demonstrates the importance of understanding the implicit deny rule.
-
----
-
-# Step 5 - ACL Corrected
-
-The ACL was updated with a permit statement.
-
-### Correct ACL
-
-![ACL With Permit](09-acl-with-permit-any.png)
-
-### Explanation
-
-The ACL now contained:
+Added:
 
 ```cisco
 access-list 100 permit ip any any
 ```
 
-allowing all traffic not explicitly denied.
-
-This restored expected network behavior.
-
----
-
-# Step 6 - Incorrect Source Address
-
-An ACL entry was created using an incorrect source IP address.
-
-### Configuration Error
-
-![Wrong Source IP](10-wrong-source-ip-acl.png)
-
-### Result
-
-![Ping Still Works](11-ping-still-works-wrong-source.png)
+![Permit Any Added](accl-with-permit-any.png)
 
 ### Explanation
 
-The ACL referenced an IP address that did not belong to PC1.
-
-Because the ACL never matched the actual traffic, packets continued to pass through the router.
-
-This demonstrates why accurate source and destination addresses are critical in ACL design.
+This allows all other traffic that does not match the deny statement.
 
 ---
 
-# Step 7 - Correct Source Address
+# Mistake 3 - Wrong Source IP Address
 
-The ACL was corrected using the actual PC1 address.
+### Incorrect ACL Entry
 
-### Correct Configuration
+The ACL referenced the wrong source IP address.
 
-![Correct Source Address](12-correct-source-ip-fix.png)
+![Wrong Source IP](wrong%20_source_ip_acl.png)
 
 ### Result
 
-![Final ACL Block](13-final-acl-block-ping.png)
+The ping still succeeded.
+
+![Wrong Source Ping](ping_still_works_wrong_source.png)
 
 ### Explanation
 
-After correcting the source address, the ACL successfully matched the traffic and blocked ICMP packets between PC1 and PC2.
+The ACL was matching traffic from a different host, so the actual ping traffic was not affected.
+
+### Fix
+
+Updated the ACL with the correct source address.
+
+![Correct Source IP](Correct_source_ip_fix.png)
+
+### Result
+
+The ping traffic is now successfully blocked.
+
+![Final ACL Block](final%20_acl_block-ping.png)
 
 ---
 
-# Final Verification
-
-The final configuration was verified using Cisco IOS commands.
-
-### Verification Commands
+## Verification Commands
 
 ```cisco
 show access-lists
@@ -227,35 +160,49 @@ show run interface g0/0
 show ip route
 ```
 
-### Output
+### Verification Output
 
-![Verification](14-verification-commands.png)
-
-### Verification Results
-
-The final checks confirmed:
-
-- ACL 100 was configured correctly
-- ACL 100 was applied inbound on G0/0
-- Static routes were present
-- ACL match counters increased during testing
-- ICMP traffic was successfully filtered
+![Verification Commands](show%20_accesslist_show_run_interface_show_ip_route.png)
 
 ---
 
-# Key Lessons Learned
+## Final ACL Configuration
 
-- Extended ACLs should be placed close to the source.
-- ACL direction is critical for proper traffic filtering.
-- Every ACL contains an implicit deny statement.
-- Incorrect source or destination addresses can prevent ACLs from matching traffic.
-- Verification commands are essential for troubleshooting.
-- Testing before and after changes helps validate ACL operation.
+```cisco
+access-list 100 deny icmp host 192.168.10.10 host 192.168.20.10
+access-list 100 permit ip any any
+
+interface g0/0
+ ip access-group 100 in
+```
 
 ---
 
-# Conclusion
+## Skills Demonstrated
 
-This project successfully demonstrated the implementation and troubleshooting of Cisco Extended ACLs.
+- Extended ACL Configuration
+- ICMP Traffic Filtering
+- Static Routing
+- ACL Placement and Direction
+- ACL Troubleshooting
+- Cisco IOS Verification Commands
+- Network Security Fundamentals
+- Packet Filtering
 
-Through multiple troubleshooting scenarios, I gained practical experience with ACL placement, direction, traffic filtering, verification commands, and real-world troubleshooting techniques commonly used by network engineers.
+---
+
+## Technologies Used
+
+- Cisco IOSv
+- EVE-NG
+- VPCS (Virtual PC Simulator)
+- Static Routing
+- Extended Access Control Lists (ACL)
+
+---
+
+## Project Outcome
+
+Successfully configured and troubleshot Cisco Extended ACLs to block ICMP traffic from PC1 (192.168.10.10) to PC2 (192.168.20.10).
+
+This project demonstrates practical CCNA-level security skills including ACL creation, ACL placement, traffic filtering, troubleshooting, verification, and network security best practices.
