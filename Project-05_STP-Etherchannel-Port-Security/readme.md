@@ -1,10 +1,8 @@
 # Project 05 — STP, EtherChannel & Port Security
 
-> **CCNA Networking Portfolio** | EVE-NG Lab | Cisco IOSv | Layer 2 Redundancy
 
----
 
-## Overview
+## Project Overview
 
 A three-switch Layer 2 lab demonstrating:
 - **Spanning Tree Protocol (STP/PVST+)** — root bridge election, port role verification, and intentional misconfiguration troubleshooting
