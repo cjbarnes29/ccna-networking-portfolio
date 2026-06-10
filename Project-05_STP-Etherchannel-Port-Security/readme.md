@@ -207,7 +207,7 @@ Security Violation Count   : 0
 
 | Show port-security | Violation count |
 |--------------------|-----------------|
-| ![show port-security](show-port-security.png) | ![Violation count zero](show_port-security_-violation.png) |
+| ![show port-security](show-port-security.png) | ![Violation count zero](show-port-security-violation.png) |
 | SW3 Gi0/3: port-security enabled | Violation count: 0 — no breach |
 
 ---
