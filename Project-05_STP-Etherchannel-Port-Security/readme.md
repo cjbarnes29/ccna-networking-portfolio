@@ -32,7 +32,7 @@ End-to-end connectivity between PC1 and PC2 (VLAN 10) verified via ping across t
     192.168.10.10/24    192.168.10.20/24
 ```
 
-![Topology](screenshots/topology.png)
+![Topology](topology.png)
 
 | Device   | Role         | Key Interfaces                          |
 |----------|--------------|-----------------------------------------|
