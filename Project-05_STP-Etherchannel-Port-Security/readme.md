@@ -73,10 +73,12 @@ SW1# show spanning-tree vlan 1
 
 | Before | After |
 |--------|-------|
-| ![Wrong root bridge](wrong-root-bridge.png) | ![STP root bridge confirmed](stp-root-bridge.png) |
+| ![Wrong root bridge](wrong-root-bridge.png) | ![STP root bridge confirmed](stp-root-bridge.png) 
+|
 | Wrong switch elected as root | Switch1 confirmed root (Priority 24577) |
 
 ![Root fixed on Switch2](root-fixed-bridge.png)
+
 *Switch2 — Root port Gi0/0, all others Designated/FWD*
 
 ---
