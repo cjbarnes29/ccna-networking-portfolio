@@ -75,10 +75,10 @@ SW1# show spanning-tree vlan 1
 
 | Before | After |
 |--------|-------|
-| ![Wrong root bridge](screenshots/wrong-root-bridge.png) | ![STP root bridge confirmed](screenshots/stp-root-bridge.png) |
+| ![Wrong root bridge](wrong-root-bridge.png) | ![STP root bridge confirmed](stp-root-bridge.png) |
 | Wrong switch elected as root | Switch1 confirmed root (Priority 24577) |
 
-![Root fixed on Switch2](screenshots/root-fixed-bridge.png)
+![Root fixed on Switch2](root-fixed-bridge.png)
 *Switch2 — Root port Gi0/0, all others Designated/FWD*
 
 ---
@@ -145,17 +145,17 @@ SW2# show interfaces port-channel 1
 
 | Failure — SW2 | Failure — SW3 |
 |---------------|---------------|
-| ![EtherChannel failure SW2](screenshots/etherchannel-failure.png) | ![EtherChannel failure SW3](screenshots/etherchanne-failure2.png) |
+| ![EtherChannel failure SW2](etherchannel-failure.png) | ![EtherChannel failure SW3](etherchannel-failure2.png) |
 | Po1(SD) — bundle down | Gi0/2 suspended, LACP error |
 
 | Fixed | Summary |
 |-------|---------|
-| ![EtherChannel fixed](screenshots/etherchannel-fixed.png) | ![show etherchannel summary](screenshots/show-etherchannel-summary.png) |
+| ![EtherChannel fixed](etherchannel-fixed.png) | ![show etherchannel summary](show-etherchannel-summary.png) |
 | Po1(SU) — both ports bundled (P) | show etherchannel summary |
 
 | LACP Neighbor | Port-Channel Interface |
 |---------------|----------------------|
-| ![show lacp neighbor](screenshots/show-lacp-neighbor.png) | ![show interfaces port-channel](screenshots/show-interface-port-channel.png) |
+| ![show lacp neighbor](show-lacp-neighbor.png) | ![show interfaces port-channel](show-interface-port-channel.png) |
 | Flags SA — Slow + Active mode | Port-channel1 up, BW 2Gbps |
 
 ---
@@ -202,12 +202,12 @@ Security Violation Count   : 0
 
 | Config | Status |
 |--------|--------|
-| ![PortFast and BPDU Guard config](screenshots/portfast-bpduguard.png) | ![Port security enabled](screenshots/port-security-enabled.png) |
+| ![PortFast and BPDU Guard config](portfast-bpduguard.png) | ![Port security enabled](port-security-enabled.png) |
 | Running config: portfast edge + bpduguard | SW2 Gi0/3: Secure-up, Shutdown mode |
 
 | Show port-security | Violation count |
 |--------------------|-----------------|
-| ![show port-security](screenshots/show-port-security.png) | ![Violation count zero](screenshots/show_port-security_-violation.png) |
+| ![show port-security](show-port-security.png) | ![Violation count zero](show_port-security_-violation.png) |
 | SW3 Gi0/3: port-security enabled | Violation count: 0 — no breach |
 
 ---
@@ -230,7 +230,7 @@ PC2> ping 192.168.10.10
 
 5/5 pings successful. Zero packet loss. Confirms full L2 reachability across the EtherChannel trunk with correct STP forwarding state and VLAN 10 consistency.
 
-![Ping success PC2 to PC1](screenshots/ping-success.png)
+![Ping success PC2 to PC1](ping-success.png)
 
 ---
 
